@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+%%META%%
+<script src="%%asset:dc-runtime%%"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>%%STYLES%%</style>
+<script src="%%asset:image-slot%%"></script>
+</helmet>
+
+<div class="page">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <sc-if value="{{ showHalos }}" hint-placeholder-val="{{ true }}">
+    <div aria-hidden="true" style="position:absolute;top:-260px;right:-200px;width:760px;height:760px;background:radial-gradient(circle, rgba(123,92,255,0.22), rgba(123,92,255,0) 65%);pointer-events:none"></div>
+    <div aria-hidden="true" style="position:absolute;top:320px;left:-260px;width:700px;height:700px;background:radial-gradient(circle, rgba(0,229,199,0.13), rgba(0,229,199,0) 65%);pointer-events:none"></div>
+  </sc-if>
+  <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(30,41,66,0.35) 1px, transparent 1px),linear-gradient(90deg, rgba(30,41,66,0.35) 1px, transparent 1px);background-size:64px 64px;mask-image:linear-gradient(#000, transparent 900px);-webkit-mask-image:linear-gradient(#000, transparent 900px);pointer-events:none"></div>
+
+  <div class="wrap">
+
+    <header class="site-header">
+      <a href="#top" class="brand">
+        <img src="%%asset:logo-omneria%%" alt="Omnéria" width="34" height="34" style="width:34px;height:34px;object-fit:contain">
+        <span>OMNERIA GAMES</span>
+      </a>
+      <button type="button" class="nav-toggle" aria-expanded="{{ navExpanded }}" aria-controls="menu-principal" onclick="{{ toggleNav }}">
+        <span class="burger" aria-hidden="true"></span><span>MENU</span>
+      </button>
+      <nav id="menu-principal" class="nav {{ navClass }}" aria-label="Navigation principale">
+        <a href="#fonctionnalites" onclick="{{ closeNav }}">FONCTIONNALITÉS</a>
+        <a href="#serveur" onclick="{{ closeNav }}">SERVEUR</a>
+        <a href="#versions" onclick="{{ closeNav }}">VERSIONS</a>
+        <a href="https://github.com/Omneria/ALlauncher">GITHUB ↗</a>
+      </nav>
+    </header>
+
+    <main id="contenu">
+    <section id="top" class="hero" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:56px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">
+          <span style="width:24px;height:1px;background:#00E5C7"></span>
+          <span>LAUNCHER DU SERVEUR ASTRAL NEXUS</span>
+        </div>
+        <h1 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(40px,6vw,76px);line-height:0.98;letter-spacing:-0.01em;text-wrap:balance">Un clic sur Jouer.<br><span style="color:#00E5C7">Le reste est automatique.</span></h1>
+        <p style="margin:0;max-width:520px;font-size:17px;line-height:1.6;color:#8494B0;text-wrap:pretty">Java 17, Forge 47.3.0, les mods et la config du serveur : le launcher installe et synchronise tout, puis vous connecte directement à Astral Nexus avec votre compte Microsoft.</p>
+        <div class="hero-cta" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+          <a id="cta-hero" class="btn" href="{{ downloadUrl }}">
+            <span aria-hidden="true">↓</span><span>TÉLÉCHARGER POUR WINDOWS</span>
+          </a>
+          <div style="display:flex;flex-direction:column;gap:4px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#8494B0">
+            <span style="color:#E8ECF5">
+              <sc-if value="{{ relLoading }}" hint-placeholder-val="{{ false }}"><span class="skeleton" style="width:120px"></span></sc-if>
+              <sc-if value="{{ relDone }}" hint-placeholder-val="{{ true }}">{{ versionLabel }}</sc-if>
+            </span>
+            <span>
+              <sc-if value="{{ relLoading }}" hint-placeholder-val="{{ false }}"><span class="skeleton" style="width:190px"></span></sc-if>
+              <sc-if value="{{ relDone }}" hint-placeholder-val="{{ true }}">{{ assetMeta }}</sc-if>
+            </span>
+          </div>
+        </div>
+        <div class="trust">
+          <a href="https://github.com/Omneria/ALlauncher"><span class="bullet"></span>Code source ouvert ↗</a>
+          <span><span class="bullet"></span>Aucune télémétrie</span>
+          <sc-if value="{{ hasDigest }}" hint-placeholder-val="{{ false }}">
+            <span class="hash">SHA-256 <code title="{{ digestFull }}">{{ digestShort }}</code><button type="button" class="chip" onclick="{{ copyDigest }}"><span aria-live="polite">{{ copyLabel }}</span></button></span>
+          </sc-if>
+        </div>
+        <details class="note">
+          <summary>Un avertissement Windows SmartScreen ?</summary>
+          <div class="body">
+            <p>Au premier lancement, Windows SmartScreen peut afficher « Windows a protégé votre ordinateur » : cliquez sur « Informations complémentaires », puis sur « Exécuter quand même ».</p>
+            <p>Pour vérifier le fichier téléchargé, comparez son empreinte SHA-256 avec celle de la page de release : <code>Get-FileHash .\AL.Launcher.exe</code> dans PowerShell.</p>
+            <sc-if value="{{ hasDigest }}" hint-placeholder-val="{{ false }}">
+              <p>Empreinte attendue : <code>{{ digestFull }}</code></p>
+            </sc-if>
+          </div>
+        </details>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">
+          <span>MINECRAFT 1.20.1</span><span aria-hidden="true" style="color:#1E2942">/</span>
+          <span>FORGE 47.3.0</span>
+        </div>
+      </div>
+      <div style="position:relative;aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120;padding:10px">
+        <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid #00E5C7;border-left:2px solid #00E5C7"></div>
+        <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:2px solid #00E5C7;border-right:2px solid #00E5C7"></div>
+        <div style="position:relative;width:100%;height:100%">
+          <image-slot id="hero-shot" shape="rect" placeholder="Capture de la fenêtre principale du launcher"></image-slot>
+        </div>
+      </div>
+    </section>
+
+    <section id="fonctionnalites" class="sec">
+      <div class="reveal" style="display:flex;flex-direction:column;gap:14px;margin-bottom:48px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">01 — FONCTIONNALITÉS</span>
+        <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05;max-width:680px;text-wrap:balance">Tout ce qu'il faut pour rejoindre le serveur, rien de plus.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:#1E2942;border:1px solid #1E2942">
+        <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+          <div class="feature reveal">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;color:#00E5C7">{{ f.tag }}</span>
+            <h3 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:600;font-size:22px;line-height:1.15">{{ f.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#8494B0;text-wrap:pretty">{{ f.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="reveal" style="display:flex;flex-direction:column;gap:14px;margin-bottom:40px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">02 — CAPTURES</span>
+        <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05">Aperçu</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px">
+        <div class="reveal" style="display:flex;flex-direction:column;gap:12px">
+          <div style="aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120"><image-slot id="shot-dashboard" shape="rect" placeholder="Tableau de bord"></image-slot></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">TABLEAU DE BORD</span>
+        </div>
+        <div class="reveal" style="display:flex;flex-direction:column;gap:12px">
+          <div style="aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120"><image-slot id="shot-settings" shape="rect" placeholder="Paramètres"></image-slot></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">PARAMÈTRES</span>
+        </div>
+        <div class="reveal" style="display:flex;flex-direction:column;gap:12px">
+          <div style="aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120"><image-slot id="shot-welcome" shape="rect" placeholder="Assistant de premier lancement"></image-slot></div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">PREMIER LANCEMENT</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="serveur" class="sec" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:stretch">
+      <div class="reveal" style="display:flex;flex-direction:column;gap:24px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">03 — PRÉREQUIS</span>
+        <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05">Ce qu'il vous faut</h2>
+        <div style="display:flex;flex-direction:column;border-top:1px solid #1E2942">
+          <sc-for list="{{ requirements }}" as="r" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:minmax(0,160px) minmax(0,1fr);gap:20px;padding:18px 0;border-bottom:1px solid #1E2942">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">{{ r.k }}</span>
+              <span style="font-size:15px;line-height:1.5">{{ r.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="card-server reveal">
+        <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid #00E5C7;border-left:2px solid #00E5C7"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">STATUT DU SERVEUR</span>
+          <span class="status {{ statusClass }}" aria-live="polite">
+            <span class="dot" aria-hidden="true"></span>
+            <span>{{ statusLabel }}</span>
+          </span>
+        </div>
+        <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+          <img src="%%asset:logo-astral-nexus%%" alt="Astral Nexus" width="112" height="112" loading="lazy" decoding="async" style="width:112px;height:112px;object-fit:contain">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:32px;line-height:1">ASTRAL NEXUS</span>
+            <span style="font-family: 'JetBrains Mono',monospace; font-size: 13px; color: #8494B0">Serveur privé</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:baseline;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid #1E2942;margin-top:auto">
+          <span style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:56px;line-height:1;color:#E8ECF5">{{ playersLabel }}</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.12em;color:#8494B0">JOUEURS CONNECTÉS</span>
+          <sc-if value="{{ statusUnknown }}" hint-placeholder-val="{{ false }}">
+            <button type="button" class="chip" onclick="{{ retryStatus }}">RÉESSAYER</button>
+          </sc-if>
+        </div>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#8494B0">Le launcher rejoint ce serveur automatiquement au lancement du jeu. Statut rafraîchi toutes les 60 s.</p>
+      </div>
+    </section>
+
+    <section id="versions" class="sec">
+      <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">04 — VERSIONS</span>
+          <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05">Changelog</h2>
+        </div>
+        <a href="https://github.com/Omneria/ALlauncher/releases" style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.12em">TOUTES LES VERSIONS ↗</a>
+      </div>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #1E2942">
+        <sc-if value="{{ relLoading }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ skeletonRows }}" as="s" hint-placeholder-count="3">
+            <div class="skeleton-row" aria-hidden="true">
+              <span class="skeleton" style="width:140px;height:22px"></span>
+              <span class="skeleton" style="width:min(100%,520px)"></span>
+            </div>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ relError }}" hint-placeholder-val="{{ false }}">
+          <div class="rel-msg" role="alert">
+            <span>Impossible de charger les versions pour le moment.</span>
+            <button type="button" class="chip" onclick="{{ retryReleases }}">RÉESSAYER</button>
+            <a href="https://github.com/Omneria/ALlauncher/releases">VOIR SUR GITHUB ↗</a>
+          </div>
+        </sc-if>
+        <sc-if value="{{ relEmpty }}" hint-placeholder-val="{{ false }}">
+          <div class="rel-msg">Aucune version publiée pour le moment.</div>
+        </sc-if>
+        <sc-for list="{{ releases }}" as="rel" hint-placeholder-count="3">
+          <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px 40px;padding:28px 0;border-bottom:1px solid #1E2942">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <a href="{{ rel.url }}" style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:20px;color:#E8ECF5" style-hover="color:#00E5C7">{{ rel.tag }}</a>
+                <sc-if value="{{ rel.latest }}" hint-placeholder-val="{{ false }}">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.14em;padding:3px 7px;border:1px solid #00E5C7;color:#00E5C7">DERNIÈRE</span>
+                </sc-if>
+              </div>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8494B0">{{ rel.date }}</span>
+            </div>
+            <div class="rel-notes" style="display:flex;flex-direction:column;gap:8px">
+              <sc-for list="{{ rel.notes }}" as="n" hint-placeholder-count="2">
+                <div style="display:flex;gap:12px;font-size:15px;line-height:1.55;color:#C9D1E2">
+                  <span aria-hidden="true" style="color:#00E5C7;font-family:'JetBrains Mono',monospace">—</span>
+                  <span style="text-wrap:pretty">{{ n }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section class="sec" style="display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center">
+      <img src="%%asset:logo-omneria%%" alt="" width="64" height="64" loading="lazy" decoding="async" style="width:64px;height:64px;object-fit:contain">
+      <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,48px);line-height:1.05;text-wrap:balance">Prêt à rejoindre Astral Nexus ?</h2>
+      <a id="cta-final" class="btn" href="{{ downloadUrl }}">
+        <span aria-hidden="true">↓</span><span>TÉLÉCHARGER {{ versionShort }}</span>
+      </a>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8494B0">Les mises à jour suivantes s'installent depuis le launcher.</span>
+    </section>
+    </main>
+
+    <footer style="padding:48px 0 56px;border-top:1px solid #1E2942;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:40px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#FFB020">AVERTISSEMENT</span>
+        <p style="margin:0;font-size:13px;line-height:1.65;color:#8494B0;text-wrap:pretty">Ce launcher est un outil non officiel développé pour un usage privé entre amis, sans lien avec Mojang, Microsoft ou Minecraft. Fourni "en l'état", sans garantie — chacun l'utilise à ses propres risques. Chaque joueur reste responsable du respect des conditions d'utilisation de Mojang/Microsoft liées à son propre compte.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#8494B0">OPEN SOURCE</span>
+        <p style="margin:0;font-size:13px;line-height:1.65;color:#8494B0">Basé sur CmlLib.Core et CmlLib.Core.Installer.Forge (MIT), Microsoft.Identity.Client (MIT). Polices Chakra Petch, Inter, JetBrains Mono (SIL OFL 1.1).</p>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.08em">
+          <a href="https://github.com/Omneria/ALlauncher">CODE SOURCE ↗</a>
+          <a href="https://github.com/Omneria/ALlauncher/releases">RELEASES ↗</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div class="sticky-cta {{ stickyClass }}">
+    <a class="btn" href="{{ downloadUrl }}"><span aria-hidden="true">↓</span><span>TÉLÉCHARGER {{ versionShort }}</span></a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;showHalos&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;releasesCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:1,&quot;max&quot;:10,&quot;tsType&quot;:&quot;number&quot;}}">
+const CONTENT = %%CONTENT%%;
+const REPO = 'Omneria/ALlauncher';
+const FALLBACK_URL = 'https://github.com/' + REPO + '/releases/latest/download/AL.Launcher.exe';
+const SERVER = 'astralnexusmc.duckdns.org:25566';
+const TTL_RELEASES = 10 * 60 * 1000;
+const TTL_STATUS = 45 * 1000;
+
+const reducedMotion = () => !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+// sessionStorage peut lever (navigation privée, stockage bloqué) : tout est optionnel.
+function cacheRead(key, maxAge) {
+  try {
+    const raw = sessionStorage.getItem(key);
+    if (!raw) return null;
+    const { t, v } = JSON.parse(raw);
+    return Date.now() - t <= maxAge ? v : null;
+  } catch (e) { return null; }
+}
+function cacheWrite(key, v) {
+  try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch (e) { /* ignoré */ }
+}
+
+class Component extends DCLogic {
+  state = {
+    releases: null, relLoading: true, relError: false,
+    status: null, playersShown: null,
+    navOpen: false, stickyOn: false, copied: false
+  };
+
+  componentDidMount() {
+    this.loadReleases();
+    this.pingStatus();
+    this.timer = setInterval(() => this.pingStatus(), 60000);
+    this.watchCtas();
+    this.onKey = (e) => { if (e.key === 'Escape' && this.state.navOpen) this.setState({ navOpen: false }); };
+    document.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearTimeout(this.copyTimer);
+    cancelAnimationFrame(this.raf);
+    if (this.io) this.io.disconnect();
+    document.removeEventListener('keydown', this.onKey);
+  }
+
+  // ── Versions (API GitHub, non authentifiée : 60 req/h/IP → cache de session) ──
+  loadReleases(force) {
+    const n = Math.max(1, this.props.releasesCount ?? 4);
+    const key = 'al:releases:' + n;
+    const fresh = force ? null : cacheRead(key, TTL_RELEASES);
+    if (fresh) { this.setState({ releases: fresh, relLoading: false, relError: false }); return; }
+    this.setState({ relLoading: true, relError: false });
+    fetch('https://api.github.com/repos/' + REPO + '/releases?per_page=' + n)
+      .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+      .then(list => {
+        const releases = list.filter(r => !r.draft && !r.prerelease).map(r => ({
+          tag_name: r.tag_name, html_url: r.html_url, published_at: r.published_at, body: r.body,
+          assets: (r.assets || []).map(a => ({ name: a.name, size: a.size, browser_download_url: a.browser_download_url, digest: a.digest }))
+        }));
+        cacheWrite(key, releases);
+        this.setState({ releases, relLoading: false, relError: false });
+      })
+      .catch(() => {
+        // Limite d'API ou réseau : on retombe sur la dernière réponse connue, même périmée.
+        const stale = cacheRead(key, Infinity);
+        if (stale) this.setState({ releases: stale, relLoading: false, relError: false });
+        else this.setState({ relLoading: false, relError: true });
+      });
+  }
+
+  // ── Statut du serveur ──
+  pingStatus(force) {
+    const cached = force ? null : cacheRead('al:status', TTL_STATUS);
+    if (cached) { this.applyStatus(cached); return; }
+    fetch('https://api.mcsrvstat.us/3/' + SERVER)
+      .then(r => r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)))
+      .then(d => {
+        const s = { online: !!d.online, n: d.players?.online ?? 0, max: d.players?.max ?? 8 };
+        cacheWrite('al:status', s);
+        this.applyStatus(s);
+      })
+      .catch(() => this.setState({ status: { unknown: true } }));
+  }
+  applyStatus(s) {
+    cancelAnimationFrame(this.raf);
+    const from = this.state.playersShown ?? 0;
+    const to = s.online ? s.n : 0;
+    if (reducedMotion() || from === to) { this.setState({ status: s, playersShown: to }); return; }
+    this.setState({ status: s });
+    const start = performance.now(), dur = 700;
+    const step = (now) => {
+      const p = Math.min(1, (now - start) / dur);
+      this.setState({ playersShown: Math.round(from + (to - from) * (1 - Math.pow(1 - p, 3))) });
+      if (p < 1) this.raf = requestAnimationFrame(step);
+    };
+    this.raf = requestAnimationFrame(step);
+  }
+
+  // ── CTA collant mobile : visible uniquement quand les deux boutons de la page sont hors écran ──
+  watchCtas() {
+    if (!('IntersectionObserver' in window)) return;
+    const seen = { 'cta-hero': true, 'cta-final': false };
+    this.io = new IntersectionObserver((entries) => {
+      for (const e of entries) seen[e.target.id] = e.isIntersecting;
+      const on = !seen['cta-hero'] && !seen['cta-final'];
+      if (on !== this.state.stickyOn) this.setState({ stickyOn: on });
+    });
+    for (const id of Object.keys(seen)) {
+      const el = document.getElementById(id);
+      if (el) this.io.observe(el);
+    }
+  }
+
+  // ── Intégrité du téléchargement ──
+  latestAsset() {
+    const latest = this.state.releases && this.state.releases[0];
+    return latest && latest.assets && latest.assets.find(a => a.name.toLowerCase().endsWith('.exe'));
+  }
+  digest() {
+    const a = this.latestAsset();
+    const m = a && typeof a.digest === 'string' && /^sha256:([0-9a-f]{64})$/i.exec(a.digest);
+    return m ? m[1].toLowerCase() : '';
+  }
+  copyDigest = () => {
+    const text = this.digest();
+    if (!text) return;
+    const done = () => {
+      this.setState({ copied: true });
+      clearTimeout(this.copyTimer);
+      this.copyTimer = setTimeout(() => this.setState({ copied: false }), 2000);
+    };
+    const legacy = () => {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) done();
+      } catch (e) { /* ignoré */ }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, legacy);
+    else legacy();
+  };
+
+  cleanNotes(body) {
+    if (!body) return [];
+    return body.split('\n')
+      .map(l => l.trim())
+      .filter(l => /^[-*] /.test(l))
+      .map(l => l.replace(/^[-*] /, '')
+        .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+        .replace(/\*\*|`/g, '')
+        .replace(/ by @\S+ in https?:\/\/\S+/, '')
+        .replace(/https?:\/\/\S+/g, '').trim())
+      .filter(Boolean)
+      .slice(0, 4);
+  }
+
+  renderVals() {
+    const { releases, relLoading, relError, status, navOpen, stickyOn, copied, playersShown } = this.state;
+    const latest = releases && releases[0];
+    const asset = this.latestAsset();
+    const digest = this.digest();
+    const fmtDate = s => new Date(s).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const list = (releases || []).slice(0, this.props.releasesCount ?? 4).map((r, i) => {
+      const notes = this.cleanNotes(r.body);
+      return { tag: r.tag_name, url: r.html_url, date: fmtDate(r.published_at), latest: i === 0, notes: notes.length ? notes : ['Voir les notes de version sur GitHub.'] };
+    });
+
+    let statusLabel = 'VÉRIFICATION…', statusClass = 'is-unknown', playersLabel = '–/8';
+    if (status && status.unknown) statusLabel = 'INCONNU';
+    else if (status) {
+      statusLabel = status.online ? 'EN LIGNE' : 'HORS LIGNE';
+      statusClass = status.online ? 'is-online' : 'is-offline';
+      playersLabel = status.online ? (playersShown ?? status.n) + '/' + (status.max || 8) : '0/8';
+    }
+
+    return {
+      showHalos: this.props.showHalos ?? true,
+      downloadUrl: asset?.browser_download_url || FALLBACK_URL,
+      versionLabel: latest ? 'Version ' + latest.tag_name : 'Dernière version',
+      versionShort: latest ? latest.tag_name.toUpperCase() : '',
+      assetMeta: asset ? 'Windows 10/11 · ' + Math.round(asset.size / 1048576) + ' Mo · .exe' : 'Windows 10/11 · ~65 Mo · .exe',
+      hasDigest: !!digest,
+      digestFull: digest,
+      digestShort: digest ? digest.slice(0, 8) + '…' + digest.slice(-8) : '',
+      copyLabel: copied ? 'COPIÉ' : 'COPIER',
+      copyDigest: this.copyDigest,
+      features: CONTENT.features,
+      requirements: CONTENT.requirements,
+      statusLabel, statusClass, playersLabel,
+      statusUnknown: !!(status && status.unknown),
+      retryStatus: () => this.pingStatus(true),
+      releases: list,
+      relLoading,
+      relDone: !relLoading,
+      relError,
+      relEmpty: !relLoading && !relError && list.length === 0,
+      skeletonRows: [1, 2, 3],
+      retryReleases: () => this.loadReleases(true),
+      navClass: navOpen ? 'open' : '',
+      navExpanded: navOpen,
+      toggleNav: () => this.setState({ navOpen: !this.state.navOpen }),
+      closeNav: () => this.setState({ navOpen: false }),
+      stickyClass: stickyOn ? 'show' : ''
+    };
+  }
+}
+</script>
+
+
+</body></html>

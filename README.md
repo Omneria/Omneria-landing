@@ -6,14 +6,17 @@ Landing page statique du jeu **Astral Nexus** par Omneria Games.
 
 ```
 .
-├── index.html                      # Page unique, autonome (assets embarqués)
+├── index.html          # Page unique, autonome (GÉNÉRÉE par build.py)
+├── og-image.png        # Image de partage (Open Graph)
+├── build.py            # Reconstruit index.html depuis src/
+├── src/                # Sources : template, styles, contenu, assets
 └── .github/workflows/
-    └── deploy-pages.yml            # Déploiement automatique sur GitHub Pages
+    └── deploy-pages.yml  # Déploiement automatique sur GitHub Pages
 ```
 
-Le site est un fichier `index.html` unique et autonome : toutes les ressources
-(styles, scripts, polices, images) sont embarquées directement dans le fichier.
-Il n'y a pas d'étape de build ni de dépendances à installer.
+`index.html` est un fichier unique et autonome : styles, scripts, polices et
+images sont embarqués. Il se régénère avec `python3 build.py` (Python 3
+standard, aucune dépendance).
 
 ## Prévisualiser en local
 
@@ -41,6 +44,7 @@ URL du site publié : https://omneria.github.io/Omneria-landing/
 
 ## Mettre à jour le site
 
-1. Remplacer `index.html` par la nouvelle version.
-2. Ouvrir une pull request vers `main`.
-3. Une fois mergée, le déploiement se déclenche automatiquement.
+1. Modifier les fichiers de `src/` (voir `CONTRIBUTING.md`).
+2. Lancer `python3 build.py` pour régénérer `index.html`.
+3. Committer `src/` et `index.html`, puis ouvrir une pull request vers `main`.
+4. Une fois mergée, le déploiement se déclenche automatiquement.

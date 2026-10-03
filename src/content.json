@@ -1,0 +1,52 @@
+{
+  "features": [
+    {
+      "tag": "JAVA",
+      "title": "Java 17 installé pour vous",
+      "body": "Détecte un Java 17 existant ou télécharge automatiquement le JRE Temurin, vérifié par empreinte SHA-256."
+    },
+    {
+      "tag": "FORGE",
+      "title": "Forge 1.20.1 prêt à jouer",
+      "body": "Installe Forge 47.3.0 avec les bibliothèques et assets vanilla nécessaires, sans manipulation."
+    },
+    {
+      "tag": "SYNC",
+      "title": "Modpack toujours à jour",
+      "body": "Mods et config synchronisés depuis le serveur par hash : seuls les fichiers modifiés sont retéléchargés, avec reprise en cas de coupure."
+    },
+    {
+      "tag": "AUTH",
+      "title": "Connexion Microsoft directe",
+      "body": "Connexion via votre navigateur, sans le launcher officiel. La session est renouvelée en silence aux lancements suivants."
+    },
+    {
+      "tag": "UPDATE",
+      "title": "Mises à jour automatiques",
+      "body": "Le launcher détecte les nouvelles versions et se met à jour en un clic."
+    },
+    {
+      "tag": "SUPPORT",
+      "title": "Diagnostic et réparation",
+      "body": "Détecte les crashs courants (RAM, Java, mod corrompu), répare le modpack et génère un rapport à coller sur Discord."
+    }
+  ],
+  "requirements": [
+    {
+      "k": "SYSTÈME",
+      "v": "Windows 10 ou 11, 64 bits"
+    },
+    {
+      "k": "COMPTE",
+      "v": "Compte Microsoft possédant Minecraft Java Edition"
+    },
+    {
+      "k": "JAVA",
+      "v": "Rien à installer : Java 17 est téléchargé automatiquement si absent"
+    },
+    {
+      "k": "ESPACE DISQUE",
+      "v": "Quelques Go libres pour le jeu, Forge et le modpack"
+    }
+  ]
+}
