@@ -32,7 +32,6 @@ ASSETS = [
     ("logo-omneria", "assets/logo-omneria.webp", "image/webp", False, None),
     ("logo-astral-nexus", "assets/logo-astral-nexus.webp", "image/webp", False, None),
     ("dc-runtime", "assets/vendor/dc-runtime.js", "text/javascript", True, None),
-    ("image-slot", "assets/vendor/image-slot.js", "text/javascript", True, None),
     ("react", "assets/vendor/react.production.min.js", "text/javascript", True,
      "https://unpkg.com/react@18.3.1/umd/react.production.min.js"),
     ("react-dom", "assets/vendor/react-dom.production.min.js", "text/javascript", True,
@@ -138,7 +137,6 @@ def prerender(template, content):
     }
     out = expand(page, scope)
     out = re.sub(r'\s(?:style-[a-z]+|hint-[a-z-]+|on[a-z]+)="[^"]*"', "", out)
-    out = re.sub(r"<image-slot\b[^>]*></image-slot>", "", out)
     for name, path, mime, _, _ in ASSETS:
         if mime.startswith("image/"):
             out = out.replace("%%asset:" + name + "%%", data_uri(path, mime))

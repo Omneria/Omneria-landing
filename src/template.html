@@ -9,7 +9,6 @@
 <x-dc>
 <helmet>
 <style>%%STYLES%%</style>
-<script src="%%asset:image-slot%%"></script>
 </helmet>
 
 <div class="page">
@@ -84,13 +83,6 @@
           <span>FORGE 47.3.0</span>
         </div>
       </div>
-      <div style="position:relative;aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120;padding:10px">
-        <div style="position:absolute;top:-1px;left:-1px;width:18px;height:18px;border-top:2px solid #00E5C7;border-left:2px solid #00E5C7"></div>
-        <div style="position:absolute;bottom:-1px;right:-1px;width:18px;height:18px;border-bottom:2px solid #00E5C7;border-right:2px solid #00E5C7"></div>
-        <div style="position:relative;width:100%;height:100%">
-          <image-slot id="hero-shot" shape="rect" placeholder="Capture de la fenêtre principale du launcher"></image-slot>
-        </div>
-      </div>
     </section>
 
     <section id="fonctionnalites" class="sec">
@@ -109,30 +101,9 @@
       </div>
     </section>
 
-    <section class="sec">
-      <div class="reveal" style="display:flex;flex-direction:column;gap:14px;margin-bottom:40px">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">02 — CAPTURES</span>
-        <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05">Aperçu</h2>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px">
-        <div class="reveal" style="display:flex;flex-direction:column;gap:12px">
-          <div style="aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120"><image-slot id="shot-dashboard" shape="rect" placeholder="Tableau de bord"></image-slot></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">TABLEAU DE BORD</span>
-        </div>
-        <div class="reveal" style="display:flex;flex-direction:column;gap:12px">
-          <div style="aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120"><image-slot id="shot-settings" shape="rect" placeholder="Paramètres"></image-slot></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">PARAMÈTRES</span>
-        </div>
-        <div class="reveal" style="display:flex;flex-direction:column;gap:12px">
-          <div style="aspect-ratio:16/10;border:1px solid #1E2942;background:#0C1120"><image-slot id="shot-welcome" shape="rect" placeholder="Assistant de premier lancement"></image-slot></div>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.1em;color:#8494B0">PREMIER LANCEMENT</span>
-        </div>
-      </div>
-    </section>
-
     <section id="serveur" class="sec" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:40px;align-items:stretch">
       <div class="reveal" style="display:flex;flex-direction:column;gap:24px">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">03 — PRÉREQUIS</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">02 — PRÉREQUIS</span>
         <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05">Ce qu'il vous faut</h2>
         <div style="display:flex;flex-direction:column;border-top:1px solid #1E2942">
           <sc-for list="{{ requirements }}" as="r" hint-placeholder-count="4">
@@ -174,7 +145,7 @@
     <section id="versions" class="sec">
       <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap">
         <div style="display:flex;flex-direction:column;gap:14px">
-          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">04 — VERSIONS</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.16em;color:#00E5C7">03 — VERSIONS</span>
           <h2 style="margin:0;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:clamp(30px,4vw,44px);line-height:1.05">Changelog</h2>
         </div>
         <a href="https://github.com/Omneria/ALlauncher/releases" style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.12em">TOUTES LES VERSIONS ↗</a>

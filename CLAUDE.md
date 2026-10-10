@@ -44,7 +44,7 @@ Landing page statique du launcher **Omnéria Games Launcher** (serveur Minecraft
 - Pas de lint/tests. Prévisualiser : ouvrir `index.html` ou `python3 -m http.server`.
 - Runtime : le composant appelle l'API GitHub Releases (`Omneria/ALlauncher`) et
   `api.mcsrvstat.us` ; réponses mises en cache dans `sessionStorage`.
-- Les captures (`<image-slot>`) sont encore des emplacements vides.
+- Pas de section captures/screenshots (supprimée) ; `<image-slot>` n'est plus utilisé.
 - Ne pas casser le caractère autonome : pas d'assets externes référencés en dur
   (hors `og-image.png` et les APIs ci-dessus).
 - Un nouvel export du bundle depuis l'outil de design écraserait ces sources :
