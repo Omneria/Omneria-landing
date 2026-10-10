@@ -5,7 +5,7 @@ Contexte pour Claude Code sur ce repo — le lire évite de ré-explorer le repo
 
 ## Ce que c'est
 
-Landing page statique du launcher **AL Launcher** (serveur Minecraft
+Landing page statique du launcher **Omnéria Games Launcher** (serveur Minecraft
 **Astral Nexus**, Omneria Games).
 
 - `index.html` : page unique et **autonome** (~0,4 Mo), **générée** par
